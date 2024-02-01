@@ -66,17 +66,18 @@ namespace BackendEmployee.Controllers
 
         // Update 
         [HttpPut]
-        [Route("Update/{departmentId}")]
-        public async Task<IActionResult> UpdateDepartment(int departmentId, [FromBody] DepartmentUpdateDto dto)
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateDepartment(long id, [FromBody] DepartmentUpdateDto dto)
         {
-            var existingDepartment = await _context.Departments.FindAsync(departmentId);
+            var existingDepartment = await _context.Departments.FindAsync(id);
 
             if (existingDepartment == null)
             {
                 return NotFound("Department not found");
             }
 
-            _mapper.Map(dto, existingDepartment);
+            _mapper.Map<DepartmentUpdateDto, Department>(dto, existingDepartment);
+
             await _context.SaveChangesAsync();
 
             return Ok("Department Updated Successfully");
@@ -84,10 +85,10 @@ namespace BackendEmployee.Controllers
 
         // Delete
         [HttpDelete]
-        [Route("Delete/{departmentId}")]
-        public async Task<IActionResult> DeleteDepartment(int departmentId)
+        [Route("Delete/{id}")]
+        public async Task<IActionResult> DeleteDepartment(long id)
         {
-            var existingDepartment = await _context.Departments.FindAsync(departmentId);
+            var existingDepartment = await _context.Departments.FindAsync(id);
 
             if (existingDepartment == null)
             {

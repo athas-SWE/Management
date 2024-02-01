@@ -49,7 +49,7 @@ namespace BackendEmployee.Controllers
         // Read (Get Job By ID)
         [HttpGet]
         [Route("Get/{id}")]
-        public async Task<ActionResult<JobGetDto>> GetJobById(int id)
+        public async Task<ActionResult<JobGetDto>> GetJobById(long id)
         {
             var job = await _context.Departments.FindAsync(id);
 
@@ -66,7 +66,7 @@ namespace BackendEmployee.Controllers
         // Update 
         [HttpPut]
         [Route("Update/{id}")]
-        public async Task<IActionResult> UpdateJob(int id, [FromBody] JobUpdateDto dto)
+        public async Task<IActionResult> UpdateJob(long id, [FromBody] JobUpdateDto dto)
         {
             var existingJob = await _context.Jobs.FindAsync(id);
 
@@ -87,7 +87,7 @@ namespace BackendEmployee.Controllers
         // Delete
         [HttpDelete]
         [Route("Delete/{id}")]
-        public async Task<IActionResult> DeleteJob(int id)
+        public async Task<IActionResult> DeleteJob(long id)
         {
             var jobToDelete = await _context.Jobs.FindAsync(id);
 

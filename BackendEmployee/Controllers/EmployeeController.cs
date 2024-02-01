@@ -51,24 +51,25 @@ namespace BackendEmployee.Controllers
 
          //Read (Get Employee By ID)
         [HttpGet]
-        [Route("{id}")]
-        public async Task<ActionResult<EmployeeGetDto>> GetEmployeeById(int id)
+        [Route("Get/{id}")]
+        public async Task<ActionResult<EmployeeGetDto>> GetEMployeeById(long id)
         {
-          var employee = await _context.Employees.FindAsync(id);
+            var employee = await _context.Employees.FindAsync(id);
 
             if (employee == null)
             {
-                return NotFound("Employee Not Found");
+                return NotFound("Employee not found");
             }
 
             var convertedEmployee = _mapper.Map<EmployeeGetDto>(employee);
+
             return Ok(convertedEmployee);
         }
 
         // Update
         [HttpPut]
         [Route("Update/{id}")]
-        public async Task<IActionResult> UpdateEmployee(int id, [FromBody] EmployeeUpdateDto dto)
+        public async Task<IActionResult> UpdateEmployee(long id, [FromBody] EmployeeUpdateDto dto)
         {
             var existingEmployee = await _context.Employees.FindAsync(id);
 
@@ -88,7 +89,7 @@ namespace BackendEmployee.Controllers
         // Delete
         [HttpDelete]
         [Route("Delete/{id}")]
-        public async Task<IActionResult> DeleteEmployee(int id)
+        public async Task<IActionResult> DeleteEmployee(long id)
         {
             var employee = await _context.Employees.FindAsync(id);
 

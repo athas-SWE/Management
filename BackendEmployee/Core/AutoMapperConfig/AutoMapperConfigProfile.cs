@@ -14,16 +14,20 @@ namespace BackendEmployee.Core.AutoMapperConfig
             // Department
             CreateMap<DepartmentCreateDto, Department>();
             CreateMap<Department, DepartmentGetDto>();
+            CreateMap<DepartmentUpdateDto, Department>();
+
 
             // Job
             CreateMap<JobCreateDto, Job>();
             CreateMap<Job, JobGetDto>()
                 .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department.Name));
+            CreateMap<JobUpdateDto, Job>();
 
             // Employee
             CreateMap<EmployeeCreateDto, Employee>();
             CreateMap<Employee, EmployeeGetDto>()
                 .ForMember(dest => dest.JobTitle, opt => opt.MapFrom(src => src.Job.Title));
+            CreateMap<EmployeeUpdateDto, Employee>();
         }
     }
 }
