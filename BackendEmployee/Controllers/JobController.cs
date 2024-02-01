@@ -76,6 +76,9 @@ namespace BackendEmployee.Controllers
                 return NotFound("Job not found");
             }
 
+            existingJob.Title= dto.Title;
+            existingJob.Property2 = dto.Property2;
+
             _mapper.Map<JobUpdateDto, Job>(dto, existingJob);
 
             await _context.SaveChangesAsync();

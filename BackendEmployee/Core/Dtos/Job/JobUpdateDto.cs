@@ -8,6 +8,6 @@ namespace BackendEmployee.Core.Dtos.Job
         public string Title { get; set; }
         public JobLevel Level { get; set; }
         public long DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
+       
     }
 }
