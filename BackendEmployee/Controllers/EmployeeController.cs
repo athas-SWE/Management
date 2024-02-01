@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BackendEmployee.Core.Context;
+//using BackendEmployee.Core.Dtos.Department;
 using BackendEmployee.Core.Dtos.Employee;
 using BackendEmployee.Core.Entities;
 using Microsoft.AspNetCore.Http;
@@ -75,12 +76,11 @@ namespace BackendEmployee.Controllers
 
             if (existingEmployee == null)
             {
-                return NotFound("Employee Not Found");
+                return NotFound("Employee not found");
             }
 
-            // Update existingEmployee properties using dto...
+            _mapper.Map<EmployeeUpdateDto, Employee>(dto, existingEmployee);
 
-            _context.Entry(existingEmployee).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return Ok("Employee Updated Successfully");

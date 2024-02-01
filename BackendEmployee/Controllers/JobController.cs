@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BackendEmployee.Core.Context;
+//using BackendEmployee.Core.Dtos.Department;
 using BackendEmployee.Core.Dtos.Job;
 using BackendEmployee.Core.Entities;
 using Microsoft.AspNetCore.Http;
@@ -51,7 +52,7 @@ namespace BackendEmployee.Controllers
         [Route("Get/{id}")]
         public async Task<ActionResult<JobGetDto>> GetJobById(long id)
         {
-            var job = await _context.Departments.FindAsync(id);
+            var job = await _context.Jobs.FindAsync(id);
 
             if (job == null)
             {
@@ -75,13 +76,11 @@ namespace BackendEmployee.Controllers
                 return NotFound("Job not found");
             }
 
-            _mapper.Map(dto, existingJob);
-
-            _context.Entry(existingJob).State = EntityState.Modified;
+            _mapper.Map<JobUpdateDto, Job>(dto, existingJob);
 
             await _context.SaveChangesAsync();
 
-            return Ok("Job updated successfully");
+            return Ok("Job Updated Successfully");
         }
 
         // Delete
