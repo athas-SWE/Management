@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BackendEmployee.Core.Context;
-//using BackendEmployee.Core.Dtos.Department;
+using BackendEmployee.Core.Dtos.Department;
 using BackendEmployee.Core.Dtos.Job;
 using BackendEmployee.Core.Entities;
 using Microsoft.AspNetCore.Http;
@@ -76,15 +76,19 @@ namespace BackendEmployee.Controllers
                 return NotFound("Job not found");
             }
 
-            existingJob.Title= dto.Title;
-            existingJob.Property2 = dto.Property2;
+            // Set individual properties first
 
-            _mapper.Map<JobUpdateDto, Job>(dto, existingJob);
+            existingJob.Title = dto.Title;
+            existingJob.Level = dto.Level;
+
+            // Use AutoMapper to map other properties from JobUpdateDto to Job
+            _mapper.Map(dto, existingJob);
 
             await _context.SaveChangesAsync();
 
             return Ok("Job Updated Successfully");
         }
+
 
         // Delete
         [HttpDelete]

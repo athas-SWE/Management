@@ -30,6 +30,6 @@
         public decimal Salary { get; set; }
         public string Department { get; set; }
         public long JobId { get; set; }
-        //public string JobTitle { get; set; }
+        public string JobTitle { get; set; }
     }
 }

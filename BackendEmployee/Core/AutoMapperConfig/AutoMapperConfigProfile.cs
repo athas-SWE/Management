@@ -19,9 +19,9 @@ namespace BackendEmployee.Core.AutoMapperConfig
 
             // Job
             CreateMap<JobCreateDto, Job>();
-            CreateMap<Job, JobGetDto>()
-                .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department.Name));
-            CreateMap<JobUpdateDto, Job>();
+            CreateMap<JobUpdateDto, Job>().ForMember(dest => dest.ID, opt => opt.Ignore());
+            CreateMap<Job, JobGetDto>();
+            CreateMap<DepartmentCreateDto, Department>();
 
             // Employee
             CreateMap<EmployeeCreateDto, Employee>();
