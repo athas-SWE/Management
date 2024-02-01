@@ -1,0 +1,10 @@
+﻿using BackendEmployee.Core.Enums;
+
+namespace BackendEmployee.Core.Dtos.Department
+{
+    public class DepartmentUpdateDto
+    {
+        public string Name { get; set; }
+        public DepartmentCode Code { get; set; }
+    }
+}

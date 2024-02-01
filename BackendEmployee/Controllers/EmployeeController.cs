@@ -47,31 +47,25 @@ namespace BackendEmployee.Controllers
             return Ok(convertedEmployees);
         }
 
-        // Read (Download Pdf File)
-      //  [HttpGet]
-        //[Route("download/{url}")]
-       // public IActionResult DownloadPdfFile(string url)
-        //{
-            // Your file download logic here...
-        //}
+       
 
-        // Read (Get Employee By ID)
-       // [HttpGet]
-        //[Route("{id}")]
-       // public async Task<ActionResult<EmployeeGetDto>> GetEmployeeById(int id)
-        //{
-          //  var employee = await _context.Employees.FindAsync(id);
+         //Read (Get Employee By ID)
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<EmployeeGetDto>> GetEmployeeById(int id)
+        {
+          var employee = await _context.Employees.FindAsync(id);
 
-            //if (employee == null)
-            //{
-              //  return NotFound("Employee Not Found");
-            //}
+            if (employee == null)
+            {
+                return NotFound("Employee Not Found");
+            }
 
-            //var convertedEmployee = _mapper.Map<EmployeeGetDto>(employee);
-            //return Ok(convertedEmployee);
-        //}
+            var convertedEmployee = _mapper.Map<EmployeeGetDto>(employee);
+            return Ok(convertedEmployee);
+        }
 
-       /* // Update
+        // Update
         [HttpPut]
         [Route("Update/{id}")]
         public async Task<IActionResult> UpdateEmployee(int id, [FromBody] EmployeeUpdateDto dto)
@@ -107,6 +101,6 @@ namespace BackendEmployee.Controllers
             await _context.SaveChangesAsync();
 
             return Ok("Employee Deleted Successfully");
-        }*/
+        }
     }
 }

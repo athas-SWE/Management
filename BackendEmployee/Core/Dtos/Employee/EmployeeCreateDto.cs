@@ -11,7 +11,7 @@
 
         public DateTime DateOfBirth { get; set; }
 
-        public decimal Salary { get; set; }
+        public decimal Salary { get; set; } 
         public string Department { get; set; }
         public long JobId { get; set; }
     }

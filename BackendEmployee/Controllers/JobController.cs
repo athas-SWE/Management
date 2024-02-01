@@ -47,9 +47,59 @@ namespace BackendEmployee.Controllers
         }
 
         // Read (Get Job By ID)
+        [HttpGet]
+        [Route("Get/{id}")]
+        public async Task<ActionResult<JobGetDto>> GetJobById(int id)
+        {
+            var job = await _context.Departments.FindAsync(id);
+
+            if (job == null)
+            {
+                return NotFound("Job not found");
+            }
+
+            var convertedJob = _mapper.Map<JobGetDto>(job);
+
+            return Ok(convertedJob);
+        }
 
         // Update 
+        [HttpPut]
+        [Route("Update/{id}")]
+        public async Task<IActionResult> UpdateJob(int id, [FromBody] JobUpdateDto dto)
+        {
+            var existingJob = await _context.Jobs.FindAsync(id);
+
+            if (existingJob == null)
+            {
+                return NotFound("Job not found");
+            }
+
+            _mapper.Map(dto, existingJob);
+
+            _context.Entry(existingJob).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return Ok("Job updated successfully");
+        }
 
         // Delete
+        [HttpDelete]
+        [Route("Delete/{id}")]
+        public async Task<IActionResult> DeleteJob(int id)
+        {
+            var jobToDelete = await _context.Jobs.FindAsync(id);
+
+            if (jobToDelete == null)
+            {
+                return NotFound("Job not found");
+            }
+
+            _context.Jobs.Remove(jobToDelete);
+            await _context.SaveChangesAsync();
+
+            return Ok("Job deleted successfully");
+        }
     }
 }
